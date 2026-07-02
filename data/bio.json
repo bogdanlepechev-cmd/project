@@ -1,0 +1,9 @@
+{
+    "name": "Khabib",
+    "surname": "Nurmagomedov",
+    "age": "37",
+    "height": "177",
+    "weight": "93",
+    "style": ["Sambo", "Judo", "Grappling"],
+    "isMarried": true
+}

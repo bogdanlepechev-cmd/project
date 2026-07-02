@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Тихон",
+        "age": "70",
+        "photo": "https://i.pinimg.com/736x/87/cd/ba/87cdbaf08977dca7383f581793b1098d.jpg"
+    },
+    {
+        "name": "Добрыня Никитич",
+        "age": "26",
+        "photo": "https://img51994.domkino.tv/img/2020-02-03/fmt_97_24_dobrynya-nikitich-i-zmey-gorynych-2.jpg"
+    },
+    {
+        "name": "Алёша Попович",
+        "age": "20",
+        "photo": "https://img51994.domkino.tv/img/2021-11-08/fmt_114_24_6-24.jpg"
+    }
+]

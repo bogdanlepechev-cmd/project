@@ -116,3 +116,35 @@ resetButton.addEventListener('click', () => {
     milliseconds = 0;
     updateDisplay();
 });
+
+// Первое задание
+
+const listContainer = document.querySelector('.characters-list');
+const xhr = new XMLHttpRequest();
+xhr.open('GET', '../data/characters.json');
+xhr.onload = () => {
+    const characters = JSON.parse(xhr.responseText);
+    characters.forEach(char => {
+        const card = document.createElement('div');
+        card.className = 'character-card';
+        card.innerHTML = `
+            <div class="character-photo">
+                <img src="${char.photo}" alt="${char.name}">
+            </div>
+            <h3>${char.name}</h3>
+            <p style="color: #fff">Возраст: ${char.age}</p>
+        `;
+        listContainer.appendChild(card);
+    });
+};
+xhr.send();
+
+// Второе задание
+
+const xhr2 = new XMLHttpRequest();
+xhr2.open('GET', '../data/bio.json');
+xhr2.onload = function() {
+    const data = JSON.parse(xhr2.responseText);
+    console.log(data);
+};
+xhr2.send();
