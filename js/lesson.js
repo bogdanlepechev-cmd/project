@@ -81,3 +81,56 @@ xhr.onload = () => {
     usdInput.oninput = () => convert(usdInput);
     eurInput.oninput = () => convert(eurInput);
 };
+
+
+// CARD SWITCHER
+
+const card = document.querySelector('.card');
+const btnNext = document.querySelector('#btn-next');
+const btnPrev = document.querySelector('#btn-prev');
+
+let cardId = 1;
+
+const renderCard = (todo) => {
+    const { title, id, completed } = todo;
+    const isCompleted = completed ? 'Completed' : 'Incomplete';
+    const completeColor = completed ? 'green' : 'red';
+
+    card.innerHTML = `
+        <p>${title}</p>
+        <p style="color: ${completeColor}">${isCompleted}</p>
+        <span>${id}</span>
+    `;
+};
+
+const fetchTodo = (id) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then((response) => response.json())
+        .then((data) => renderCard(data));
+};
+btnNext.onclick = () => {
+    cardId = cardId >= 200 ? 1 : cardId + 1;
+    fetchTodo(cardId);
+};
+
+btnPrev.onclick = () => {
+    cardId = cardId <= 1 ? 200 : cardId - 1;
+    fetchTodo(cardId);
+};
+
+fetchTodo(cardId);
+
+
+// FETCH запрос
+
+const fetchPosts = () => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach((post) => {
+                console.log(post);
+            });
+        })
+};
+
+fetchPosts();
