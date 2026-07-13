@@ -3,7 +3,6 @@
 const gmailInput = document.getElementById('gmail_input');
 const gmailButton = document.getElementById('gmail_button');
 const gmailResult = document.getElementById('gmail_result');
-
 const regExp = /^(?=[0-9.]*[a-z])[a-z0-9.]{3,20}@gmail\.com$/i;
 
 gmailButton.onclick = () => {
@@ -17,6 +16,8 @@ gmailButton.onclick = () => {
         gmailResult.style.color = 'red';
     }
 };
+
+
 // Движение квадрата
 
 const parentBlock = document.querySelector('.parent_block');
@@ -120,31 +121,50 @@ resetButton.addEventListener('click', () => {
 // Первое задание
 
 const listContainer = document.querySelector('.characters-list');
-const xhr = new XMLHttpRequest();
-xhr.open('GET', '../data/characters.json');
-xhr.onload = () => {
-    const characters = JSON.parse(xhr.responseText);
-    characters.forEach(char => {
-        const card = document.createElement('div');
-        card.className = 'character-card';
-        card.innerHTML = `
-            <div class="character-photo">
-                <img src="${char.photo}" alt="${char.name}">
-            </div>
-            <h3>${char.name}</h3>
-            <p style="color: #fff">Возраст: ${char.age}</p>
-        `;
-        listContainer.appendChild(card);
-    });
+const loadCharacters = async () => {
+    try {
+        const response = await fetch('../data/characters.json');
+
+        if (!response.ok) {
+            throw new Error(`Ошибка сети: ${response.status}`);
+        }
+        const characters = await response.json();
+        if (!listContainer) return;
+        characters.forEach((char) => {
+            const card = document.createElement('div');
+            card.className = 'character-card';
+            card.innerHTML = `
+                <div class="character-photo">
+                    <img src="${char.photo}" alt="${char.name}">
+                </div>
+                <h3>${char.name}</h3>
+                <p style="color: #fff">Возраст: ${char.age}</p>
+            `;
+            listContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error('Не удалось загрузить персонажей:', error);
+        if (listContainer) {
+            listContainer.innerHTML = '<p style="color: #fff">Не удалось загрузить данные</p>';
+        }
+    }
 };
-xhr.send();
 
 // Второе задание
 
-const xhr2 = new XMLHttpRequest();
-xhr2.open('GET', '../data/bio.json');
-xhr2.onload = function() {
-    const data = JSON.parse(xhr2.responseText);
-    console.log(data);
+const loadBio = async () => {
+    try {
+        const response = await fetch('../data/bio.json');
+
+        if (!response.ok) {
+            throw new Error(`Ошибка сети: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Не удалось загрузить биографию:', error);
+    }
 };
-xhr2.send();
+
+loadCharacters();
+loadBio();
